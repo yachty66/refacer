@@ -12,10 +12,10 @@ args = parser.parse_args()
 
 refacer = Refacer(force_cpu=args.force_cpu,colab_performance=args.colab_performance)
 
-def run(video_path,faces):
+def run(video_path, faces):
     video_path_exists = exists(video_path)
     if video_path_exists == False:
-        print ("Can't find " + video_path)
+        print("Can't find " + video_path)
         return
 
     faces_out = []
@@ -23,19 +23,19 @@ def run(video_path,faces):
         face_str = face[0].split(",")
         origin = exists(face_str[0])
         if origin == False:
-            print ("Can't find " + face_str[0])
+            print("Can't find " + face_str[0])
             return
         destination = exists(face_str[1])
         if destination == False:
-            print ("Can't find " + face_str[1])
+            print("Can't find " + face_str[1])
             return
-        
-        faces_out.append({
-                'origin':cv2.imread(face_str[0]),
-                'destination':cv2.imread(face_str[1]),
-                'threshold':float(face_str[2])
-            })
 
-    return refacer.reface(video_path,faces_out)
+        faces_out.append({
+            'origin': cv2.imread(face_str[0]),
+            'destination': cv2.imread(face_str[1]),
+            'threshold': float(face_str[2])
+        })
+
+    return refacer.reface(video_path, faces_out)
 
 run(args.video, args.face)
